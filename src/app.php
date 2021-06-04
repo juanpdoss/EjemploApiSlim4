@@ -155,7 +155,7 @@ $app->group("/jsonBd",function(RouteCollectorProxy $grupo)
 
 
 
-});
+})->add(Validador::class .":VerificarCuerpoPeticion"); // middleware a nivel del group
 
   
 

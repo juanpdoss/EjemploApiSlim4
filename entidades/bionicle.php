@@ -39,9 +39,7 @@
        
         public function AgregarUno(Request $request,Response $response,array $args):Response
         {
-
             $datos=$request->getParsedBody();
-
             $json=json_decode($datos["json"]);
 
             if(Bionicle::InsertarBionicle($json)!=0)
@@ -55,10 +53,7 @@
                 $response->getBody()->write("No se pudo realizar la insercion");
             }
 
-
-           return $response;
-        
-        
+            return $response;   
         }
 
 
@@ -67,8 +62,6 @@
         $datos=$args["parametros"];//mando por url una cadena json
 
         $json=json_decode($datos,true);
-
-        
 
         if(isset($json))
         {
@@ -80,8 +73,7 @@
             else
             {
                 $response->withStatus(400,"Error");
-                $response->getBody()->write("No se pudo realizar la modificacion");
-                
+                $response->getBody()->write("No se pudo realizar la modificacion");       
             }
         }
 			

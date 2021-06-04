@@ -101,7 +101,42 @@
         }
         
 
+        public function VerificarCuerpoPeticion(Request $request, RequestHandler $handler): ResponseMW
+        {
+            $respuesta=new ResponseMW();
+            $datos=$request->getParsedBody();
+            $json=json_decode($datos["obj_json"],true);
 
+
+            if(isset($json))
+            {
+                if($json["nombre"]=="")
+                {
+                    $respuesta->withStatus(400,"Error, no se introdujo el nombre.");
+                    $respuesta->getBody()->write("Error, no se introdujo el nombre");
+
+                }else if($json["clave"]=="")
+                {
+                    $respuesta->withStatus(400,"Error, no se introdujo la clave.");
+                    $respuesta->getBody()->write("Error, no se introdujo la clave");
+
+                }
+                else
+                {
+                    $respuesta->withStatus(200,"ok");
+                    $respuesta->getBody()->write($handler->handle($request)->getBody()->__toString());
+                }
+
+
+            }
+            else
+            {
+                $respuesta->withStatus(400,"Error, no se mandaron los parametros requeridos.");
+                $respuesta->getBody()->write("Error, no se mandaron los parametros requeridos.");
+            }
+            return $respuesta;
+
+        }
 
 
 
